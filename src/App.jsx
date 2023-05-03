@@ -18,15 +18,17 @@ function App () {
         <h1>React Issues</h1>
         <table>
           <thead>
-            <th>Id</th>
-            <th>Title</th>
-            <th>User</th>
+            <tr>
+              <th>Id</th>
+              <th>Title</th>
+              <th>User</th>
+            </tr>
           </thead>
           <tbody>{
             issues.map(issue => (
               <IssueContainer
                 key={issue.id}
-                url={issue.url}
+                url={issue.html_url}
                 id={issue.id}
                 title={issue.title}
                 user={issue.user.login}
