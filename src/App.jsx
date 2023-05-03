@@ -1,32 +1,42 @@
 import { useState, useEffect } from 'react'
 import './App.css'
+import IssueContainer from './components/IssueContainer'
 
 function App () {
-  const [issue, setIssue] = useState([])
+  const [issues, setIssues] = useState([])
 
   useEffect(() => {
     fetch('https://api.github.com/repos/facebook/react/issues')
       .then(res => res.json())
       .then(results => {
-        const { data } = results
-        setIssue(data)
+        setIssues(results)
       }).catch(err => console.log(err))
   }, [])
-
   return (
     <>
-      <h1>React Issues</h1>
-      <table>
-        <tr>
-          <th>Id</th>
-          <th>Title</th>
-          <th>User</th>
-        </tr>
-        issue.map(issues => (
-        
+      <div>
+        <h1>React Issues</h1>
+        <table>
+          <thead>
+            <th>Id</th>
+            <th>Title</th>
+            <th>User</th>
+          </thead>
+          <tbody>{
+            issues.map(issue => (
+              <IssueContainer
+                key={issue.id}
+                url={issue.url}
+                id={issue.id}
+                title={issue.title}
+                user={issue.user.login}
+              />
+            ))
+          }
+          </tbody>
+        </table>
+      </div>
 
-        ))
-      </table>
     </>
   )
 }
